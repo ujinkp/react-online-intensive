@@ -16,7 +16,7 @@ export default class Post extends Component {
                 {(context) => (
                     <section  className = { Styles.post }>
                         <img src = { context.avatar } />
-                        <a>{`${ context.curentUserFirstName } ${ context.curentUserLastName }` }</a>
+                        <a>{ context.curentUserFirstName } { context.curentUserLastName }</a>
                         <time>{moment().format('MMMM D h:mm:ss a')}</time>
                         <p>Howdy!</p>
                     </section>

@@ -20,22 +20,21 @@ export default class Feed extends Component {
         this._createPost = this._createPost.bind(this);
         this._setPostFetchingState = this._setPostFetchingState.bind(this);
         this._likePost = this._likePost.bind(this);
-
     }
-    
+
     state = {
         posts: [
-            { 
-                id: '123', 
-                comment: 'Hi there!', 
-                created: 1526825076849, 
-                likes: [] 
+            {
+                id:      '123',
+                comment: 'Hi there!',
+                created: 1526825076849,
+                likes:   [],
             },
-            { 
-                id: '456', 
-                comment: 'Привет', 
-                created: 1526825076855, 
-                likes: [] },
+            {
+                id:      '456',
+                comment: 'Привет',
+                created: 1526825076855,
+                likes:   [] },
         ],
         fetching: false,
     }
@@ -58,38 +57,38 @@ export default class Feed extends Component {
         await delay(1200);
 
         this.setState(({ posts }) => ({
-            posts: [ post, ...posts ],
+            posts:    [ post, ...posts ],
             fetching: false,
         }));
     }
 
     async _likePost (id) {
-        const { currentUserFirstName, currentUserLastName} = this.props;
+        const { currentUserFirstName, currentUserLastName } = this.props;
         this._setPostFetchingState(true);
 
         await delay(1200);
 
-        const newPosts = this.state.posts.map(post => {
+        const newPosts = this.state.posts.map((post) => {
             if (post.id === id) {
                 return {
                     ...post,
                     likes: [
                         {
-                            id:         getUniqueID(),
-                            firstName:  currentUserFirstName,
-                            lastName:   currentUserLastName,
-                        }
-                    ]
-                }
+                            id:        getUniqueID(),
+                            firstName: currentUserFirstName,
+                            lastName:  currentUserLastName,
+                        },
+                    ],
+                };
             }
 
             return post;
         });
 
         this.setState({
-            posts:      newPosts,
-            fetching:   false,
-        })
+            posts:    newPosts,
+            fetching: false,
+        });
     }
 
     render() {

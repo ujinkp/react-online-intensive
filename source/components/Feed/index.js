@@ -92,6 +92,27 @@ export default class Feed extends Component {
         });
     }
 
+    async _deletePost (id) {
+        this._setPostFetchingState(true);
+
+        await delay(1200);
+
+        const newPosts = this.state.posts.map((post) => {
+            if (post.id === id) {
+                return {
+                    ...post,
+                };
+            }
+
+            return post;
+        });
+
+        this.setState({
+            posts:    newPosts,
+            fetching: false,
+        });
+    }
+
     render() {
         const { posts, fetching } = this.state;
 
@@ -100,6 +121,7 @@ export default class Feed extends Component {
                 <Post
                     key = { post.id }
                     { ...post }
+                    _deletePost = { this._deletePost }
                     _likePost = { this._likePost }
                 />
             );

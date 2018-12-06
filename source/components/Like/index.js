@@ -18,12 +18,13 @@ export default class Like extends Component {
                 lastName:  string.isRequired,
             }),
         ).isRequired,
-    }
+    };
 
     constructor () {
         super();
 
-        this._getLikeByMe = this._getLikeByMe.bind(this);
+        this._likePost = this._likePost.bind(this);
+        this._getLikedByMe = this._getLikedByMe.bind(this);
         this._getLikeStyles = this._getLikeStyles.bind(this);
         this._showLikers = this._showLikers.bind(this);
         this._hideLikers = this._hideLikers.bind(this);
@@ -52,19 +53,18 @@ export default class Like extends Component {
         _likePost(id);
     }
 
-    _getLikeByMe () {
+    _getLikedByMe () {
         const { currentUserFirstName, currentUserLastName, likes } = this.props;
 
-        return likes.some(({firstName, lastName}) => {
+        return likes.some(({ firstName, lastName }) => {
             return (
-                `${firstName} ${lastName}`
-                === `${currentUserFirstName} ${currentUserLastName}`
+                `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`
             );
         });
     }
 
     _getLikeStyles () {
-        const likedByMe = this._getLikeByMe();
+        const likedByMe = this._getLikedByMe();
 
         return cx(Styles.icon, {
             [ Styles.liked ]: likedByMe,
@@ -73,7 +73,7 @@ export default class Like extends Component {
 
     _getLikersList () {
         const { showLikers } = this.state;
-        const { likes } = this.state;
+        const { likes } = this.props;
 
         const likesJSX = likes.map(({ firstName, lastName, id }) => (
             <li key = { id }>{`${firstName} ${lastName}`}</li>
@@ -91,7 +91,7 @@ export default class Like extends Component {
                 <span
                     className = { likeStyles }
                     onClick = { this._likePost }>
-                Like
+                    Like
                 </span>
                 <div>
                     {likersList}

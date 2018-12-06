@@ -29,6 +29,7 @@ export default class Like extends Component {
         this._showLikers = this._showLikers.bind(this);
         this._hideLikers = this._hideLikers.bind(this);
         this._getLikersList = this._getLikersList.bind(this);
+        this._getLikesDescription = this._getLikesDescription.bind(this);
     }
 
     state = {
@@ -54,11 +55,11 @@ export default class Like extends Component {
     }
 
     _getLikedByMe () {
-        const { currentUserFirstName, currentUserLastName, likes } = this.props;
+        const { curentUserFirstName, curentUserLastName, likes } = this.props;
 
         return likes.some(({ firstName, lastName }) => {
             return (
-                `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`
+                `${firstName} ${lastName}` === `${curentUserFirstName} ${curentUserLastName}`
             );
         });
     }
@@ -82,9 +83,26 @@ export default class Like extends Component {
         return likes.length && showLikers ? <ul>{likesJSX}</ul> : null;
     }
 
+    _getLikesDescription () {
+        const { likes, curentUserFirstName, curentUserLastName } = this.props;
+
+        const likedByMe = this._getLikedByMe();
+
+        if (likes.length === 1 && likedByMe) {
+            return `${curentUserFirstName} ${curentUserLastName}`;
+        } else if (likes.length === 2 && likedByMe) {
+            return `You and ${likes.length - 1} others`;
+        } else if (likedByMe) {
+            return `You and ${likes.length - 1} others`;
+        }
+
+        return likes.length;
+    }
+
     render () {
         const likeStyles = this._getLikeStyles();
         const likersList = this._getLikersList();
+        const likesDescription = this._getLikesDescription();
 
         return (
             <section className = { Styles.like }>
@@ -98,7 +116,7 @@ export default class Like extends Component {
                     <span
                         onMouseEnter = { this._showLikers }
                         onMouseLeave = { this._hideLikers }>
-                        0
+                        {likesDescription}
                     </span>
                 </div>
             </section>

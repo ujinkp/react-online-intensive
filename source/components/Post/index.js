@@ -21,17 +21,29 @@ export default class Post extends Component {
         likes:       array.isRequired,
     }
 
+    constructor () {
+        super();
+
+        this._deletePost = this._deletePost.bind(this);
+    }
+
+    _deletePost () {
+        const { _deletePost, id } = this.props;
+
+        _deletePost(id);
+    }
+
     render() {
-        const { comment, created, _likePost, _deletePost, id, likes } = this.props;
+        const { comment, created, _likePost, id, likes } = this.props;
 
         return (
             <Consumer>
                 {(context) => (
                     <section  className = { Styles.post }>
-                        <span>
+                        <span
                             className = { Styles.cross }
-                            onClick = { _deletePost }
-                        </span>
+                            onClick = { this._deletePost }
+                        />
                         <img src = { context.avatar } />
                         <a>{`${ context.curentUserFirstName } ${ context.curentUserLastName }` }</a>
                         <time>

@@ -20,6 +20,7 @@ export default class Feed extends Component {
         this._createPost = this._createPost.bind(this);
         this._setPostFetchingState = this._setPostFetchingState.bind(this);
         this._likePost = this._likePost.bind(this);
+        this._deletePost = this._deletePost.bind(this);
     }
 
     state = {
@@ -97,20 +98,10 @@ export default class Feed extends Component {
 
         await delay(1200);
 
-        const newPosts = this.state.posts.map((post) => {
-            if (post.id === id) {
-                return {
-                    ...post,
-                };
-            }
-
-            return post;
-        });
-
-        this.setState({
-            posts:    newPosts,
+        this.setState(({ posts }) => ({
+            posts:    posts.filter((post) => post.id !== id),
             fetching: false,
-        });
+        }));
     }
 
     render() {

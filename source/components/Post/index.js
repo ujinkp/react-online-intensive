@@ -13,11 +13,12 @@ import Styles from './styles.m.css';
 
 export default class Post extends Component {
     static propTypes = {
-        _likePost: func.isRequired,
-        comment:   string.isRequired,
-        created:   number.isRequired,
-        id:        string.isRequired,
-        likes:     array.isRequired,
+        _likePost:   func.isRequired,
+        _deletePost: func.isRequired,
+        comment:     string.isRequired,
+        created:     number.isRequired,
+        id:          string.isRequired,
+        likes:       array.isRequired,
     }
 
     render() {

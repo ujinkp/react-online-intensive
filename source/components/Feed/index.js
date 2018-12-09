@@ -47,7 +47,7 @@ export default class Feed extends Component {
                 !== `${meta.athorFirstName} ${meta.athorLastName}`
             ) {
                 this.setState(({ posts }) => ({
-                    posts: post.filter((post) => post.id !== removedPost.id),
+                    posts: posts.filter((post) => post.id !== removedPost.id),
                 }));
             }
         });

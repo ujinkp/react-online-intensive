@@ -4,7 +4,7 @@ import React, {Component, createContext } from 'react';
 const { Provider, Consumer } = createContext();
 
 const withProfile = (Enhanceable) => {
-    return class WirhProfile extends Component {
+    return class withProfile extends Component {
         render () {
             return (
                 <Consumer>

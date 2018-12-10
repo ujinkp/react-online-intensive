@@ -1,6 +1,8 @@
 // Core
 import React, { Component } from 'react';
 import cx from 'classnames';
+import { Transition } from 'react-transition-group';
+import { fromTo } from 'gsap';
 
 //Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -34,6 +36,10 @@ export default class StatusBar extends Component {
         socket.removeListenet('disconnect');
     }
 
+    _animateStatusBarEnter = (statusbar) => {
+        fromTo(statusbar, 1, { opacity: 0 }, { opacity: 1 });
+    }
+
     render() {
         const {
             avatar,
@@ -50,18 +56,24 @@ export default class StatusBar extends Component {
         const statusMassage = online ? 'Online' : 'Offline';
 
         return (
-            <section  className = { Styles.statusBar }>
-                <div className = { statusStyle }>
-                    <div>{statusMassage}</div>
-                    <span/>
-                </div>
-                <button>
-                    <img src = { avatar } />
-                    <span>{`${ curentUserFirstName }`}</span>
+            <Transition
+                appear
+                in
+                timeout = { 1000 }
+                onEnter = { this._animateStatusBarEnter}>
+                <section  className = { Styles.statusBar }>
+                    <div className = { statusStyle }>
+                        <div>{statusMassage}</div>
+                        <span/>
+                    </div>
+                    <button>
+                        <img src = { avatar } />
+                        <span>{`${ curentUserFirstName }`}</span>
                             &nbsp;
-                    <span>{`${ curentUserLastName }`}</span>
-                </button>
-            </section>
+                        <span>{`${ curentUserLastName }`}</span>
+                    </button>
+                </section>
+            </Transition>
         );
     }
 }

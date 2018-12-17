@@ -29,4 +29,13 @@ describe('instruments:', () => {
         expect(getUniqueID(5)).toHaveLength(5);
         expect(getUniqueID(13)).toHaveLength(13);
     });
+    test('getFullApiUrl function should be a function', () =>{
+        expect(getFullApiUrl).toBeInstanceOf(Function);
+    });
+    test('getFullApiUrl function should be throw, when called with non-number type as an argument', () =>{
+        expect(() => getFullApiUrl('привет')).toThrow();
+    });
+    test('getFullApiUrl function should produce a string of disired given length', () =>{
+        expect(typeof getFullApiUrl('привет', 'привет')).toBe('string');
+    });
 });

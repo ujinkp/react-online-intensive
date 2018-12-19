@@ -17,6 +17,8 @@ const updateState = {
     comment,
 };
 
+const enterKey = '';
+
 const result = mount(<Composer { ...props } />);
 
 const _submitCommentSpy = jest.spyOn(result.instance(), '_submitComment');
@@ -78,6 +80,11 @@ describe('composer component:', () =>{
     test('_submitComment and _handleFormSubmit class methods should be invoked once after form is submitted', () => {
         expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
         expect(_handleFormSubmitSpy).toHaveBeenCalledTimes(1);
+    });
+    test('should handle form "OnEnter" event', () => {
+        result.find('textarea').simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
+        //expect(enterKey).toBe('Enter');
+        expect(result.state()).toEqual(initialState);
     });
 });
 

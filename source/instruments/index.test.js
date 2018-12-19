@@ -29,6 +29,9 @@ describe('instruments:', () => {
         expect(getUniqueID(5)).toHaveLength(5);
         expect(getUniqueID(13)).toHaveLength(13);
     });
+    test('getUniqueID function should produce a default length 15 characters', () =>{
+        expect(getUniqueID()).toHaveLength(15);
+    });
     test('getFullApiUrl function should be a function', () =>{
         expect(getFullApiUrl).toBeInstanceOf(Function);
     });
